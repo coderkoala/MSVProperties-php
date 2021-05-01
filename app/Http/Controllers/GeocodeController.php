@@ -188,18 +188,12 @@ class GeocodeController
     private function invokeDistanceMatrix() {
         $distanceMatrix = new DistanceMatrixService( new Client(), new GuzzleMessageFactory() ); // Need to take a look at it, GuzzleMessageFactory is deprecated.
         $distanceMatrix->setKey( env('google_maps_API_key') );
-
-        $response = $distanceMatrix->process(
-            new DistanceMatrixRequest(
-            [
-                new AddressLocation('Vancouver BC')
-            ], 
-            [
-                new AddressLocation('San Francisco')
-            ]
+        $response = $distanceMatrix->process( new DistanceMatrixRequest( 
+            [ new AddressLocation('Vancouver BC') ], 
+            [ new AddressLocation('San Francisco') ]
         ));
-
         dd( $response->getStatus() );
+        return $response;
     }
 
     /**

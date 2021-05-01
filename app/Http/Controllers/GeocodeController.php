@@ -2,6 +2,15 @@
 
 namespace App\Http\Controllers;
 
+// For Guzzle Adaptor and Message factory..
+use Http\Message\MessageFactory\GuzzleMessageFactory;
+use Http\Adapter\Guzzle7\Client;
+
+// Necessary maps SDK directives.
+use Ivory\GoogleMap\Service\DistanceMatrix\DistanceMatrixService;
+use Ivory\GoogleMap\Service\Base\Location\AddressLocation;
+use Ivory\GoogleMap\Service\DistanceMatrix\Request\DistanceMatrixRequest;
+
 use App\Components\Forms\GeocodeForm;
 use App\Components\Validation\FormValidationException;
 use Exception;
@@ -157,7 +166,7 @@ class GeocodeController
                     } else {
 
                         // Bail.
-                        if (!$location) {
+                        if ( ! $location ) {
                             throw "Location information validation failed.";
                         }
                     }
@@ -174,10 +183,32 @@ class GeocodeController
     }
 
     /**
+     * Delegate computation of Google Maps Distance Matrix to the Maps API service.
+     */
+    private function invokeDistanceMatrix() {
+        $distanceMatrix = new DistanceMatrixService( new Client(), new GuzzleMessageFactory() ); // Need to take a look at it, GuzzleMessageFactory is deprecated.
+        $distanceMatrix->setKey( env('google_maps_API_key') );
+
+        $response = $distanceMatrix->process(
+            new DistanceMatrixRequest(
+            [
+                new AddressLocation('Vancouver BC')
+            ], 
+            [
+                new AddressLocation('San Francisco')
+            ]
+        ));
+
+        dd( $response->getStatus() );
+    }
+
+    /**
      * Handle View landing.
      */
     public function viewAction()
     {
+        dd( $this->invokeDistanceMatrix() );
+
         $leadID = '805a0dff-b76f-eb11-b0b0-000d3a5319cc';
         $agentsAndRealtors = $this->runFetchXMLQueryEntities('cr4f2_agentsandrealtor', 'cr4f2_leadtoagentrealtor', $leadID);
         $leadLocation = $this->fetchLeadLocation($leadID);

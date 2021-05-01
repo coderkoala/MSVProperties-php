@@ -23,7 +23,11 @@
         "vlucas/phpdotenv": "1.1.*",
         "guzzlehttp/guzzle": "7.0",
         "mp091689/dump-die": "^1.0",
-        "alexacrm/dynamics-webapi-toolkit": "dev-master"
+        "alexacrm/dynamics-webapi-toolkit": "dev-master",
+        "egeloen/google-map": "^2.0",
+        "php-http/message": "^1.11",
+        "egeloen/serializer": "^1.0",
+        "php-http/guzzle7-adapter": "^1.0"
     },
     "autoload" : {
         "psr-4": {

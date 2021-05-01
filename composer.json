@@ -20,7 +20,10 @@
         "slim/slim": "2.5.*",
         "slim/views": "0.1.*",
         "twig/twig": "1.18.*",
-        "vlucas/phpdotenv": "1.1.*"
+        "vlucas/phpdotenv": "1.1.*",
+        "guzzlehttp/guzzle": "7.0",
+        "mp091689/dump-die": "^1.0",
+        "alexacrm/dynamics-webapi-toolkit": "dev-master"
     },
     "autoload" : {
         "psr-4": {
@@ -28,4 +31,3 @@
         }
     }
 }
-

@@ -10,12 +10,16 @@
  */
 
 // Defining a route using a controller
+$router->apiPrefix = '/api/v1';
 
-$router->get('/', 'HomeController::index')->name('home');
+$router->get('/', 'HomeController::index')->name('index');
 $router->post('/', 'HomeController::subscribe')->name('subscribe');
 
-// Using a route with a callback function
+// Geocoding
+$router->get("$router->apiPrefix/geocoding", 'GeocodeController::view')->name('gcindex');
 
+
+// Using a route with a callback function
 $router->get('/terms', function () use ($app) {
     $app->render('terms.twig');
 })->name('terms');

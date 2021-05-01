@@ -1,0 +1,34 @@
+{% extends "_layout/master.twig" %}
+
+{% block content %}
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="mb-4">Ooops, you shouldn't be here!</h1>
+			<p>Greetings stranger! I am a microservice that is showing a placeholder for a potentially awesome website in the unforeseeable future. For now, I only act as a very fast computing microservices for MSVProperties, LLC. I am used for a bunch of interesting solutions involving geocoding, consuming rest api from Zillow, and of course MS Dynamics CRM.</p>
+
+            <p>
+            If you're reading this, you should stop and go catch butterflies or something. And don't tell anyone about what you found!
+            </p> 
+			{% if message %}
+				<div class="alert {% if errors %} alert-danger{% else %} alert-success{% endif %}">{{ message }}</div>
+			{% else %}
+				<form method="POST" action="{{ urlFor('subscribe') }}">
+                    <div class="input-group mb-3">
+                    <input type="text" name="email" value="" class="form-control {% if errors.email %}is-invalid{% endif %}" placeholder="Join our Newsletter">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" value="Subscribe" type="submit">Subscribe</button>
+                    </div>
+                    </div>
+				</form>
+			{% endif %}
+
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block body_end %}
+	<script data-main="js/main" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.js"></script>
+{% endblock %}

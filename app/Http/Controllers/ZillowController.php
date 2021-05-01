@@ -40,7 +40,7 @@ class HomeController
      */
     public function indexAction()
     {
-        $this->app->render('index.twig', array(
+        $this->app->render('home.twig', array(
             'message'  => $this->session->get('message'),
             'errors'   => $this->session->get('errors'),
             'oldInput' => $this->session->get('input')

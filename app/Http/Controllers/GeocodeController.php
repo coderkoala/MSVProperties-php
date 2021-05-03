@@ -274,24 +274,4 @@ class GeocodeController
             'oldInput' => $this->session->get('input')
         ));
     }
-
-    /**
-     * Handle Post request.
-     */
-    public function subscribeAction()
-    {
-        try {
-            $this->GeocodeForm->validate($this->app->request()->params());
-        } catch (FormValidationException $e) {
-
-            $this->session->flash('message', 'Invalid Data.');
-            $this->session->flash('errors', $e->getErrors());
-            $this->session->flash('input', $this->app->request()->params());
-
-            $this->app->response->redirect($this->app->urlFor('index'));
-            return;
-        }
-
-        $this->app->response->redirect($this->app->urlFor('index'));
-    }
 }

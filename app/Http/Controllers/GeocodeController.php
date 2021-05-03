@@ -7,8 +7,10 @@ use Http\Message\MessageFactory\GuzzleMessageFactory;
 use Http\Adapter\Guzzle7\Client;
 
 // Necessary maps SDK directives.
+use Ivory\GoogleMap\Base\Coordinate;
 use Ivory\GoogleMap\Service\DistanceMatrix\DistanceMatrixService;
 use Ivory\GoogleMap\Service\Base\Location\AddressLocation;
+use Ivory\GoogleMap\Service\Base\Location\CoordinateLocation;
 use Ivory\GoogleMap\Service\DistanceMatrix\Request\DistanceMatrixRequest;
 
 use App\Components\Forms\GeocodeForm;
@@ -188,11 +190,12 @@ class GeocodeController
     private function invokeDistanceMatrix() {
         $distanceMatrix = new DistanceMatrixService( new Client(), new GuzzleMessageFactory() ); // Need to take a look at it, GuzzleMessageFactory is deprecated.
         $distanceMatrix->setKey( env('google_maps_API_key') );
+        $coordinates = new CoordinateLocation( new Coordinate(54.25435, 146.123) );
         $response = $distanceMatrix->process( new DistanceMatrixRequest( 
-            [ new AddressLocation('Vancouver BC') ], 
-            [ new AddressLocation('San Francisco') ]
+            array( new AddressLocation('Vancouver BC'), $coordinates ), 
+            array( new AddressLocation('San Francisco') ),
         ));
-        dd( $response->getStatus() );
+        dd( $response );
         return $response;
     }
 

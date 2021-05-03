@@ -1,0 +1,32 @@
+{% extends "_layout/master.twig" %}
+
+{% block content %}
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="mb-4">Geocoding Services</h1>
+			<p>Geocoding Services Module allows you to let the system auto fetch all agents associations, then compute distances between each agent.</p>
+
+            <p>
+            Please enter a valid Lead ID for your desired lead :
+            </p> 
+			{% if message %}
+				<div class="alert {% if errors %} alert-danger{% else %} alert-success{% endif %}">{{ message }}</div>
+			{% endif %}
+				<form method="POST" action="{{ urlFor('geocodingIndex') }}">
+                    <div class="input-group mb-3">
+                    <input type="text" name="leadid" required value="" class="form-control {% if errors.leadid %}is-invalid{% endif %}" placeholder="Enter Dynamics Lead UUID: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" value="Subscribe" type="submit">Start Distance Matrix Calculation</button>
+                    </div>
+                    </div>
+				</form>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block body_end %}
+	<script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.js"></script>
+{% endblock %}

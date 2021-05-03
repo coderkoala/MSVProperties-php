@@ -61,7 +61,7 @@ class HomeController
             $this->session->flash('errors', $e->getErrors());
             $this->session->flash('input', $this->app->request()->params());
 
-            $this->app->response->redirect($this->app->urlFor('home'));
+            $this->app->response->redirect($this->app->urlFor('index'));
             return;
         }
 
@@ -70,6 +70,6 @@ class HomeController
         //
 
         $this->session->flash('message', 'Thanks for your request. You have successfully subscribed for our newsletter.');
-        $this->app->response->redirect($this->app->urlFor('home'));
+        $this->app->response->redirect($this->app->urlFor('index'));
     }
 }

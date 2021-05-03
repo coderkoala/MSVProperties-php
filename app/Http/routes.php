@@ -16,7 +16,8 @@ $router->get('/', 'HomeController::index')->name('index');
 $router->post('/', 'HomeController::subscribe')->name('subscribe');
 
 // Geocoding
-$router->get("$router->apiPrefix/geocoding", 'GeocodeController::view')->name('gcindex');
+$router->get('/geocoding', 'GeocodeController::index')->name('geocodingIndex');
+$router->post('/geocoding', 'GeocodeController::post')->name('geocodingPost');
 
 
 // Using a route with a callback function

@@ -1,0 +1,48 @@
+{% extends "_layout/master_noheader.twig" %}
+
+{% block content %}
+
+	<div class="container-fluid pr-4 pl-4">
+		<div class="jumbotron" style="padding:1rem">
+			<h1 class="mb-4">Geocoding Services</h1>
+			<p>System has finished computing distances between each agent with the desired lead. You can access records, or check routes in map in the table below.</p>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Row A</th>
+					<th scope="col">Row B</th>
+					<th scope="col">Row C</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>lorem</td>
+					<td>ipsum</td>
+					<td>dolores</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>lorem</td>
+					<td>ipsum</td>
+					<td>dolores</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>lorem</td>
+					<td>ipsum</td>
+					<td>dolores</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+{% endblock %}
+
+{% block body_end %}
+	<script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.js"></script>
+{% endblock %}
+

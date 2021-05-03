@@ -10,12 +10,12 @@
             <p>
             Please enter a valid Lead ID for your desired lead :
             </p> 
-			{% if message %}
-				<div class="alert {% if errors %} alert-danger{% else %} alert-success{% endif %}">{{ message }}</div>
-			{% endif %}
+				{% if message %}
+					<div class="alert alert-danger">{{ message }}</div>
+				{% endif %}
 				<form method="POST" action="{{ urlFor('geocodingIndex') }}">
                     <div class="input-group mb-3">
-                    <input type="text" name="leadid" required value="" class="form-control {% if errors.leadid %}is-invalid{% endif %}" placeholder="Enter Dynamics Lead UUID: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx">
+                    <input type="text" name="leadid" value="" class="form-control {% if errors.leadid %}is-invalid{% endif %}" placeholder="Enter Dynamics Lead UUID: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx">
                     <div class="input-group-append">
                         <button class="btn btn-outline-success" value="Subscribe" type="submit">Start Distance Matrix Calculation</button>
                     </div>

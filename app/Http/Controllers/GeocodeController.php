@@ -158,7 +158,7 @@ class GeocodeController
                     }
                 } else {
                     // Validating the LatLong coords.
-                    if (abs((float)$retrievedLead->Attributes['new_latitude']) <= 90 && abs((float)$retrievedLead->Attributes['new_latitude']) <= 180) {
+                    if (abs((float)$retrievedLead->Attributes['new_latitude']) <= 90 && abs((float)$retrievedLead->Attributes['new_longitude']) <= 180) {
                         $location = str_replace('', ' ', $retrievedLead->Attributes['new_latitude'] . ',' . $retrievedLead->Attributes['new_longitude']);
                         $geoLocation->latLong = $location;
                         $geoLocation->latitude = $retrievedLead->Attributes['new_latitude'];
@@ -242,7 +242,10 @@ class GeocodeController
      */
     public function indexAction()
     {
-        $this->app->render('geocoding.twig');
+        $this->app->render('geocoding.twig',
+        array(
+            'message'  => $this->session->get('message'),
+        ));
     }
 
     /**
@@ -253,20 +256,23 @@ class GeocodeController
         try {
             $this->GeocodeForm->validate($this->app->request()->params());
         } catch (FormValidationException $e) {
-
-            $this->session->flash('message', 'Invalid Data.');
-            $this->session->flash('errors', $e->getErrors());
-            $this->session->flash('input', $this->app->request()->params());
-
+            $this->session->flash('message', 'Invalid Lead UUID provided. Please try again with a valid UUID');
             $this->app->response->redirect($this->app->urlFor('geocodingIndex'));
             return;
         }
 
-        $leadID = '805a0dff-b76f-eb11-b0b0-000d3a5319cc';
+        $leadID = $this->app->request()->params()['leadid']; // '805a0dff-b76f-eb11-b0b0-000d3a5319cc'
         $this->agentsAndRealtors = $this->runFetchXMLQueryEntities('cr4f2_agentsandrealtor', 'cr4f2_leadtoagentrealtor', $leadID);
         $this->leadLocation = $this->fetchLeadLocation($leadID);
         $this->invokeDistanceMatrix();
-        $this->app->render('geocoding.twig', array(
+        dd( array(
+            '$agent'   => $this->agentsAndRealtors,
+            '$lead'    => $this->leadLocation,
+            'message'  => $this->session->get('message'),
+            'errors'   => $this->session->get('errors'),
+            'oldInput' => $this->session->get('input')
+        ));
+        $this->app->render('geocoding_results.twig', array(
             '$agent'   => $this->agentsAndRealtors,
             '$lead'    => $this->leadLocation,
             'message'  => $this->session->get('message'),

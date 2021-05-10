@@ -270,7 +270,8 @@ class GeocodeController
             '$lead'    => $this->leadLocation,
             'message'  => $this->session->get('message'),
             'errors'   => $this->session->get('errors'),
-            'oldInput' => $this->session->get('input')
+            'oldInput' => $this->session->get('input'),
+            'client'   => $this->client
         ));
         $this->app->render('geocoding_results.twig', array(
             '$agent'   => $this->agentsAndRealtors,
